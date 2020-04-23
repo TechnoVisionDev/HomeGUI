@@ -1,0 +1,12 @@
+name: HomeGUI
+version: 1.0.0
+author: TechnoVision
+main: com.technovision.homegui.Main
+api-version: 1.14
+depend: [Essentials]
+
+commands:
+  home:
+    description: Opens the HomeGUI screen.
+    usage: /<command>
+    aliases: homes

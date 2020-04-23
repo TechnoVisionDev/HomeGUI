@@ -1,0 +1,9 @@
+
+# IntelliJ
+out/
+
+# User-specific stuff:
+.idea/
+
+# IntelliJ missing files
+HomeGUI.iml
