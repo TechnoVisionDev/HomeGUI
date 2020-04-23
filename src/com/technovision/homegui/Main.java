@@ -23,11 +23,10 @@ public class Main extends JavaPlugin {
 
         //Commands
         getCommand(HomeCommand.HOME).setExecutor(new HomeCommand());
-        getServer().getConsoleSender().sendMessage("[HomeGUI]: Plugin is enabled!");
     }
 
     @Override
     public void onDisable() {
-        getServer().getConsoleSender().sendMessage( "[HomeGUI]: Plugin is disabled!");
+        getServer().getConsoleSender().sendMessage( "[HomeGUI]: Plugin has been disabled.");
     }
 }

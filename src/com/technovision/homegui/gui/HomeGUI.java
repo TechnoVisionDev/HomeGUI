@@ -38,6 +38,7 @@ public class HomeGUI implements InventoryHolder, Listener {
 
     private int calculateSize() {
         int size = homes.size();
+        if (size == 0) {return 9;}
         if (size >= 54) { return 54; }
         if (size % 9 == 0) { return size; }
         int count = 0;
@@ -88,11 +89,12 @@ public class HomeGUI implements InventoryHolder, Listener {
             if (event.isLeftClick()) {
                 player.performCommand("essentials:home " + name);
                 player.closeInventory();
-            //Right Click
+            //Middle Click
             } else if (event.getAction() == InventoryAction.CLONE_STACK) {
                 player.performCommand("essentials:delhome " + name);
+                Main.dataReader.removeIcon(playerID, name);
                 player.closeInventory();
-            //Middle Click
+            //Right Click
             } else if (event.isRightClick()) {
                 player.closeInventory();
                 Main.iconGUI.openInventory(player, allHomes.get(playerID).get(slotNum));

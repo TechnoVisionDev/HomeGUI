@@ -54,9 +54,10 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
                 String playerID = event.getWhoClicked().getUniqueId().toString();
                 Material icon = event.getCurrentItem().getType();
 
-                Main.dataReader.write(playerID, homes.get(playerID).getName(), icon);
+                String homeName = homes.get(playerID).getName();
+                Main.dataReader.write(playerID, homeName, icon);
 
-                String message = "§a§l(!) §aSaved <name> home icon to " + ChatColor.UNDERLINE + itemName;
+                String message = "§a§l(!) §aSaved " + homeName + " home icon to " + ChatColor.UNDERLINE + itemName;
                 player.sendMessage(message);
                 player.closeInventory();
             }

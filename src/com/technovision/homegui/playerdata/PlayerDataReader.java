@@ -58,4 +58,18 @@ public class PlayerDataReader {
         }
         return Material.GRASS_BLOCK;
     }
+
+    public void removeIcon(String playerUUID, String homeName) {
+        try {
+            File dataFile = getFile(playerUUID);
+            if (dataFile.exists()) {
+                YamlConfiguration dataFileConfig = YamlConfiguration.loadConfiguration(dataFile);
+                System.out.println("HEYYYYYY " + homeName);
+                dataFileConfig.set(homeName, null);
+                dataFileConfig.save(dataFile);
+            }
+        } catch (IOException e) {
+            Bukkit.broadcastMessage(ChatColor.RED + "File does not exist. Cannot load file.");
+        }
+    }
 }
