@@ -6,8 +6,9 @@ import com.technovision.homegui.playerdata.PlayerDataReader;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Main plugin class.
- * @author TechnoVision 4/21/2020
+ * HomeGUI Spigot Plugin
+ * @author TechnoVision 4/26/2020
+ * @version 1.1
  */
 public class Main extends JavaPlugin {
 
@@ -20,6 +21,7 @@ public class Main extends JavaPlugin {
         PLUGIN = this;
         iconGUI = new ChangeIconGUI();
         dataReader = new PlayerDataReader();
+        loadConfig();
 
         //Commands
         getCommand(HomeCommand.HOME).setExecutor(new HomeCommand());
@@ -28,5 +30,11 @@ public class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         getServer().getConsoleSender().sendMessage( "[HomeGUI]: Plugin has been disabled.");
+    }
+
+    public void loadConfig() {
+        getConfig().options().copyDefaults(true);
+        getConfig().options().copyHeader(true);
+        saveConfig();
     }
 }

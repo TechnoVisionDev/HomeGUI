@@ -1,4 +1,4 @@
-name: GUIHome
+name: HomeGUI
 version: 1.0.0
 author: TechnoVision
 main: com.technovision.homegui.Main

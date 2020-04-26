@@ -4,6 +4,7 @@ import com.technovision.homegui.Main;
 import com.technovision.homegui.playerdata.Home;
 import com.technovision.homegui.playerdata.EssentialsReader;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -30,7 +32,9 @@ public class HomeGUI implements InventoryHolder, Listener {
         Bukkit.getServer().getPluginManager().registerEvents(this, Main.PLUGIN);
         EssentialsReader reader = new EssentialsReader(playerUUID.toString());
         homes = reader.getHomes();
-        inv = Bukkit.createInventory(this, calculateSize(), "Your Homes");
+        String title = Main.PLUGIN.getConfig().getString("gui-main-header").replace('&', '§');
+        title = title.replace("§8", "");
+        inv = Bukkit.createInventory(this, calculateSize(), title);
         allHomes.put(playerUUID.toString(), homes);
         Main.dataReader.create(playerUUID.toString());
         initItems(playerUUID.toString());
@@ -53,21 +57,29 @@ public class HomeGUI implements InventoryHolder, Listener {
         for (Home home : homes) {
             name = home.getName().substring(0, 1).toUpperCase() + home.getName().substring(1);
             Material icon = Main.dataReader.getIcon(playerID, home.getName());
-            inv.addItem(createGuiItem(icon, "§b§l" + name,
-                    "§7Location:§f " + home.getX() + "x§7,§f " + home.getY() + "y§7,§f " + home.getZ() + "z",
-                    "§7World:§f " + home.getWorld(),
-                    " ",
-                    "§7Left-Click to Teleport",
-                    "§7Middle-Click to Delete Home",
-                    "§7Right-Click to Edit Icon"));
+            String nameColor = Main.PLUGIN.getConfig().getString("home-color").replace("&", "§");
+            name = nameColor + name;
+            List<String> lore = Main.PLUGIN.getConfig().getStringList("home-lore");
+            String location = home.getX() + "x§7,§f " + home.getY() + "y§7,§f " + home.getZ() + "z";
+            for (int i = 0; i < lore.size(); i++) {
+                String newLine = lore.get(i).replace("{location}", location);
+                newLine = newLine.replace("{world}", home.getWorld());
+                if (newLine.contains("&")) {
+                    newLine = newLine.replace("&", "§");
+                } else {
+                    newLine = "§f" + newLine;
+                }
+                lore.set(i, newLine);
+            }
+            inv.addItem(createGuiItem(icon, name, lore));
         }
     }
 
-    private ItemStack createGuiItem(final Material material, final String name, final String... lore) {
+    private ItemStack createGuiItem(final Material material, final String name, final List<String> lore) {
         final ItemStack item = new ItemStack(material, 1);
         final ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
-        meta.setLore(Arrays.asList(lore));
+        meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
     }
@@ -79,9 +91,11 @@ public class HomeGUI implements InventoryHolder, Listener {
 
     @EventHandler
     public void onGuiActivation(InventoryClickEvent event){
+        if (event.getClickedInventory() == null) { return; }
         Player player = (Player) event.getWhoClicked();
         if (activeGui.contains(player.getName()) && event.getCurrentItem() != null) {
             event.setCancelled(true);
+            if (event.getClickedInventory().getType() == InventoryType.PLAYER) { return; }
             String playerID = player.getUniqueId().toString();
             int slotNum = event.getSlot();
             String name = allHomes.get(playerID).get(slotNum).getName();

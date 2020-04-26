@@ -1,0 +1,84 @@
+# +------------------------------------------------------+ #
+# |                 HomeGUI (Configuration)              | #
+# +------------------------------------------------------+ #
+# If you have problems, join the HomeGUI help support channel:
+# https://discord.gg/D34gGVu
+# -----------------------------------------------------------
+# Use these placeholders to display information:
+# {world} ---> Displays the home world (home-lore)
+# {location} ---> Displays the x,y,z home coordinates (home-lore)
+# {home} ---> Displays the home name (icon-select-message)
+# {icon} ---> Displays the icon name (icon-select-message)
+# ------------------------------------------------------------
+# IMPORTANT NOTES:
+#    > Do not add more than 54 icons!
+#    > Wrap your text in '' (quotes) if using color codes
+#    > Only use {world} and {location} in home-lore
+#    > Only use {home} and {icon} in icon-select-message
+# ------------------------------------------------------------
+gui-main-header: '&8Your Homes'
+gui-icon-header: '&8Select Home Icon'
+icon-select-message: '&a&l(!) &aSaved {home} home icon to &n{icon}'
+home-color: '&b&l'
+home-lore:
+  - '&7Location: &f{location}'
+  - '&7World: &f{world}'
+  - ' '
+  - '&7Left-Click to Teleport'
+  - '&7Middle-Click to Delete Home'
+  - '&7Right-Click to Edit Icon'
+icons:
+  - DIRT
+  - STONE
+  - COBBLESTONE
+  - OAK_LOG
+  - COBWEB
+  - CRAFTING_TABLE
+  - PISTON
+  - NOTE_BLOCK
+  - SPAWNER
+  - BOOKSHELF
+  - TNT
+  - SMOOTH_STONE_SLAB
+  - ANVIL
+  - IRON_BLOCK
+  - GOLD_BLOCK
+  - DIAMOND_BLOCK
+  - NETHER_BRICKS
+  - NETHERRACK
+  - END_STONE
+  - CHEST
+  - ENDER_CHEST
+  - STONE_BRICKS
+  - SNOW_BLOCK
+  - SOUL_SAND
+  - QUARTZ_BLOCK
+  - DIAMOND_SWORD
+  - DIAMOND_AXE
+  - DIAMOND_PICKAXE
+  - DIAMOND_SHOVEL
+  - DIAMOND_HOE
+  - ICE
+  - PACKED_ICE
+  - DISPENSER
+  - FURNACE
+  - HOPPER
+  - GLASS
+  - SAND
+  - SPONGE
+  - OBSIDIAN
+  - BEDROCK
+  - ENCHANTING_TABLE
+  - CACTUS
+  - GLOWSTONE
+  - DIAMOND
+  - EMERALD
+  - GOLD_INGOT
+  - IRON_INGOT
+  - REDSTONE
+  - BUCKET
+  - LAVA_BUCKET
+  - WATER_BUCKET
+  - GOLDEN_APPLE
+  - EXPERIENCE_BOTTLE
+  - RED_BED
