@@ -82,8 +82,10 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
     private void initItems() {
         List<String> icons = Main.PLUGIN.getConfig().getStringList("icons");
         for (String icon : icons) {
-            Material item = Material.valueOf(icon);
-            inv.addItem(createGuiItem(item, getFriendlyName(item)));
+            Material item = Material.getMaterial(icon);
+            if (item != null) {
+                inv.addItem(createGuiItem(item, getFriendlyName(item)));
+            }
         }
     }
 
