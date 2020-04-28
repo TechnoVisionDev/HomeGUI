@@ -1,5 +1,5 @@
 name: HomeGUI
-version: 1.0.0
+version: 1.1.2
 author: TechnoVision
 main: com.technovision.homegui.Main
 api-version: 1.14
@@ -10,3 +10,6 @@ commands:
     description: Opens the HomeGUI screen.
     usage: /<command>
     aliases: homes
+  h:
+    description: Reloads the HomeGUI config.
+    usage: /<command>

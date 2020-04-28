@@ -13,18 +13,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
 
     public static Main PLUGIN;
-    public static ChangeIconGUI iconGUI;
     public static PlayerDataReader dataReader;
 
     @Override
     public void onEnable() {
         PLUGIN = this;
-        iconGUI = new ChangeIconGUI();
         dataReader = new PlayerDataReader();
         loadConfig();
 
         //Commands
         getCommand(HomeCommand.HOME).setExecutor(new HomeCommand());
+        getCommand(HomeCommand.H).setExecutor(new HomeCommand());
     }
 
     @Override

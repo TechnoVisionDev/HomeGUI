@@ -111,7 +111,8 @@ public class HomeGUI implements InventoryHolder, Listener {
             //Right Click
             } else if (event.isRightClick()) {
                 player.closeInventory();
-                Main.iconGUI.openInventory(player, allHomes.get(playerID).get(slotNum));
+                ChangeIconGUI iconGUI = new ChangeIconGUI();
+                iconGUI.openInventory(player, allHomes.get(playerID).get(slotNum));
             }
         }
     }
