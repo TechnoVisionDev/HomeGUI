@@ -39,22 +39,24 @@ public class EssentialsReader {
 
     private void initHomes() {
         homes = new ArrayList<Home>();
-        Set<String> names = fileReader.getConfigurationSection("homes").getKeys(false);
-        for (String name : names) {
-            Set<String> data = fileReader.getConfigurationSection("homes." + name).getKeys(false);
-            for (String info : data) {
-                if (info.matches("world")) {
-                    world = fileReader.get("homes." + name + "." + info).toString();
-                } else if (info.matches("x")) {
-                    x = Double.parseDouble(fileReader.get("homes." + name + "." + info).toString());
-                } else if (info.matches("y")) {
-                    y = Double.parseDouble(fileReader.get("homes." + name + "." + info).toString());
-                } else if (info.matches("z")) {
-                    z = Double.parseDouble(fileReader.get("homes." + name + "." + info).toString());
+        try {
+            Set<String> names = fileReader.getConfigurationSection("homes").getKeys(false);
+            for (String name : names) {
+                Set<String> data = fileReader.getConfigurationSection("homes." + name).getKeys(false);
+                for (String info : data) {
+                    if (info.matches("world")) {
+                        world = fileReader.get("homes." + name + "." + info).toString();
+                    } else if (info.matches("x")) {
+                        x = Double.parseDouble(fileReader.get("homes." + name + "." + info).toString());
+                    } else if (info.matches("y")) {
+                        y = Double.parseDouble(fileReader.get("homes." + name + "." + info).toString());
+                    } else if (info.matches("z")) {
+                        z = Double.parseDouble(fileReader.get("homes." + name + "." + info).toString());
+                    }
                 }
+                homes.add(new Home(name, world, (int) x, (int) y, (int) z, Material.GRASS_BLOCK));
             }
-            homes.add(new Home(name, world, (int) x, (int) y, (int) z, Material.GRASS_BLOCK));
-        }
+        } catch (NullPointerException ignored) { }
     }
 
     public List<Home> getHomes() {
