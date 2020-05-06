@@ -1,8 +1,7 @@
 package com.technovision.homegui.commands;
 
-import com.technovision.homegui.Main;
+import com.technovision.homegui.Homegui;
 import com.technovision.homegui.gui.HomeGUI;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,7 +35,7 @@ public class HomeCommand implements CommandExecutor {
                 } else if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("reload")) {
                         if (player.hasPermission("home.rl") || player.isOp()) {
-                            Main.PLUGIN.reloadConfig();
+                            Homegui.PLUGIN.reloadConfig();
                             sender.sendMessage("§7[§eHomeGUI§7]§f: Config file reloaded");
                         } else {
                             sender.sendMessage(ChatColor.RED + "You do not have permission to use that!");

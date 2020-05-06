@@ -1,6 +1,6 @@
 package com.technovision.homegui.gui;
 
-import com.technovision.homegui.Main;
+import com.technovision.homegui.Homegui;
 import com.technovision.homegui.playerdata.Home;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,8 +25,8 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
     private Inventory inv;
 
     public ChangeIconGUI() {
-        Bukkit.getServer().getPluginManager().registerEvents(this, Main.PLUGIN);
-        String title = Main.PLUGIN.getConfig().getString("gui-icon-header").replace('&', '§');
+        Bukkit.getServer().getPluginManager().registerEvents(this, Homegui.PLUGIN);
+        String title = Homegui.PLUGIN.getConfig().getString("gui-icon-header").replace('&', '§');
         title = title.replace("§8", "");
         inv = Bukkit.createInventory(this, 54, title);
         initItems();
@@ -60,9 +60,9 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
                 Material icon = event.getCurrentItem().getType();
 
                 String homeName = homes.get(playerID).getName();
-                Main.dataReader.write(playerID, homeName, icon);
+                Homegui.dataReader.write(playerID, homeName, icon);
 
-                String msg = Main.PLUGIN.getConfig().getString("icon-select-message").replace("&", "§");
+                String msg = Homegui.PLUGIN.getConfig().getString("icon-select-message").replace("&", "§");
                 msg = msg.replace("{home}", homeName);
                 msg = msg.replace("{icon}", itemName);
                 player.sendMessage(msg);
@@ -80,7 +80,7 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
     }
 
     private void initItems() {
-        List<String> icons = Main.PLUGIN.getConfig().getStringList("icons");
+        List<String> icons = Homegui.PLUGIN.getConfig().getStringList("icons");
         for (String icon : icons) {
             Material item = Material.getMaterial(icon);
             if (item != null) {
