@@ -1,8 +1,8 @@
 package com.technovision.homegui.gui;
 
 import com.technovision.homegui.Homegui;
-import com.technovision.homegui.playerdata.Home;
 import com.technovision.homegui.playerdata.EssentialsReader;
+import com.technovision.homegui.playerdata.Home;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
