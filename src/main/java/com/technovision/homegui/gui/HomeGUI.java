@@ -8,10 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -103,7 +100,7 @@ public class HomeGUI implements InventoryHolder, Listener {
                 player.performCommand("essentials:home " + name);
                 player.closeInventory();
                 //Middle Click
-            } else if (event.getAction() == InventoryAction.CLONE_STACK) {
+            } else if (event.getClick().equals(ClickType.MIDDLE)) {
                 player.performCommand("essentials:delhome " + name);
                 Homegui.dataReader.removeIcon(playerID, name);
                 player.closeInventory();
