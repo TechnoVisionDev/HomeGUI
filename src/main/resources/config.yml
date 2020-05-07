@@ -18,6 +18,7 @@
 # ------------------------------------------------------------
 gui-main-header: '&8Your Homes'
 gui-icon-header: '&8Select Home Icon'
+gui-sethome-header: '&8Set Home'
 icon-select-message: '&a&l(!) &aSaved {home} home icon to &n{icon}'
 home-color: '&b&l'
 home-lore:

@@ -1,10 +1,9 @@
 package com.technovision.homegui.gui;
 
-import com.technovision.homegui.Main;
-import com.technovision.homegui.playerdata.Home;
+import com.technovision.homegui.Homegui;
 import com.technovision.homegui.playerdata.EssentialsReader;
+import com.technovision.homegui.playerdata.Home;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,14 +28,14 @@ public class HomeGUI implements InventoryHolder, Listener {
     private List<Home> homes;
 
     public HomeGUI(UUID playerUUID) {
-        Bukkit.getServer().getPluginManager().registerEvents(this, Main.PLUGIN);
+        Bukkit.getServer().getPluginManager().registerEvents(this, Homegui.PLUGIN);
         EssentialsReader reader = new EssentialsReader(playerUUID.toString());
         homes = reader.getHomes();
-        String title = Main.PLUGIN.getConfig().getString("gui-main-header").replace('&', '§');
+        String title = Homegui.PLUGIN.getConfig().getString("gui-main-header").replace('&', '§');
         title = title.replace("§8", "");
         inv = Bukkit.createInventory(this, calculateSize(), title);
         allHomes.put(playerUUID.toString(), homes);
-        Main.dataReader.create(playerUUID.toString());
+        Homegui.dataReader.create(playerUUID.toString());
         initItems(playerUUID.toString());
     }
 
@@ -56,10 +55,10 @@ public class HomeGUI implements InventoryHolder, Listener {
         String name;
         for (Home home : homes) {
             name = home.getName().substring(0, 1).toUpperCase() + home.getName().substring(1);
-            Material icon = Main.dataReader.getIcon(playerID, home.getName());
-            String nameColor = Main.PLUGIN.getConfig().getString("home-color").replace("&", "§");
+            Material icon = Homegui.dataReader.getIcon(playerID, home.getName());
+            String nameColor = Homegui.PLUGIN.getConfig().getString("home-color").replace("&", "§");
             name = nameColor + name;
-            List<String> lore = Main.PLUGIN.getConfig().getStringList("home-lore");
+            List<String> lore = Homegui.PLUGIN.getConfig().getStringList("home-lore");
             String location = home.getX() + "x§7,§f " + home.getY() + "y§7,§f " + home.getZ() + "z";
             for (int i = 0; i < lore.size(); i++) {
                 String newLine = lore.get(i).replace("{location}", location);
@@ -103,12 +102,12 @@ public class HomeGUI implements InventoryHolder, Listener {
             if (event.isLeftClick()) {
                 player.performCommand("essentials:home " + name);
                 player.closeInventory();
-            //Middle Click
+                //Middle Click
             } else if (event.getAction() == InventoryAction.CLONE_STACK) {
                 player.performCommand("essentials:delhome " + name);
-                Main.dataReader.removeIcon(playerID, name);
+                Homegui.dataReader.removeIcon(playerID, name);
                 player.closeInventory();
-            //Right Click
+                //Right Click
             } else if (event.isRightClick()) {
                 player.closeInventory();
                 ChangeIconGUI iconGUI = new ChangeIconGUI();

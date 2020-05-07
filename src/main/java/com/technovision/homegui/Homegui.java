@@ -1,18 +1,13 @@
 package com.technovision.homegui;
 
 import com.technovision.homegui.commands.HomeCommand;
-import com.technovision.homegui.gui.ChangeIconGUI;
+import com.technovision.homegui.commands.SetHomeCommand;
 import com.technovision.homegui.playerdata.PlayerDataReader;
 import org.bukkit.plugin.java.JavaPlugin;
 
-/**
- * HomeGUI Spigot Plugin
- * @author TechnoVision 4/26/2020
- * @version 1.1
- */
-public class Main extends JavaPlugin {
+public class Homegui extends JavaPlugin {
 
-    public static Main PLUGIN;
+    public static Homegui PLUGIN;
     public static PlayerDataReader dataReader;
 
     @Override
@@ -22,6 +17,8 @@ public class Main extends JavaPlugin {
         loadConfig();
 
         //Commands
+        getCommand(SetHomeCommand.SETHOME).setExecutor(new SetHomeCommand()); //Redstoneguy129
+
         getCommand(HomeCommand.HOME).setExecutor(new HomeCommand());
         getCommand(HomeCommand.H).setExecutor(new HomeCommand());
     }

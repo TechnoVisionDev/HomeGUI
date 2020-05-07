@@ -1,10 +1,9 @@
 name: HomeGUI
-version: 1.1.2
-author: TechnoVision
-main: com.technovision.homegui.Main
+version: 1.3
+main: com.technovision.homegui.Homegui
 api-version: 1.13
 depend: [Essentials]
-
+authors: [TechnoVision]
 commands:
   home:
     description: Opens the HomeGUI screen.
@@ -12,4 +11,7 @@ commands:
     aliases: homes
   h:
     description: Reloads the HomeGUI config.
+    usage: /<command>
+  sethome:
+    description: Opens the SetHomeGUI screen.
     usage: /<command>
