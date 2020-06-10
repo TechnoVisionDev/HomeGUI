@@ -5,10 +5,6 @@ import com.technovision.homegui.playerdata.EssentialsReader;
 import com.technovision.homegui.playerdata.Home;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -16,16 +12,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
-public class HomeGUI implements InventoryHolder, Listener {
+public class HomeGUI implements InventoryHolder {
 
-    public static List<String> activeGui = new ArrayList<String>();
     public static Map<String, List<Home>> allHomes = new HashMap<>();
 
     private Inventory inv;
     private List<Home> homes;
 
     public HomeGUI(UUID playerUUID) {
-        Bukkit.getServer().getPluginManager().registerEvents(this, Homegui.PLUGIN);
         EssentialsReader reader = new EssentialsReader(playerUUID.toString());
         homes = reader.getHomes();
         String title = Homegui.PLUGIN.getConfig().getString("gui-main-header").replace('&', '§');
@@ -79,48 +73,6 @@ public class HomeGUI implements InventoryHolder, Listener {
         item.setItemMeta(meta);
         return item;
     }
-
-    public void openInventory(Player player) {
-        player.openInventory(inv);
-        activeGui.add(player.getName());
-    }
-
-    @EventHandler
-    public void onGuiActivation(InventoryClickEvent event){
-        if (event.getClickedInventory() == null) { return; }
-        Player player = (Player) event.getWhoClicked();
-        if (activeGui.contains(player.getName()) && event.getCurrentItem() != null) {
-            event.setCancelled(true);
-            if (event.getClickedInventory().getType() == InventoryType.PLAYER) { return; }
-            String playerID = player.getUniqueId().toString();
-            int slotNum = event.getSlot();
-            String name = allHomes.get(playerID).get(slotNum).getName();
-            //Left Click
-            if (event.isLeftClick()) {
-                player.performCommand("essentials:home " + name);
-                player.closeInventory();
-                //Middle Click
-            } else if (event.getClick().equals(ClickType.MIDDLE)) {
-                player.performCommand("essentials:delhome " + name);
-                Homegui.dataReader.removeIcon(playerID, name);
-                player.closeInventory();
-                //Right Click
-            } else if (event.isRightClick()) {
-                player.closeInventory();
-                ChangeIconGUI iconGUI = new ChangeIconGUI();
-                iconGUI.openInventory(player, allHomes.get(playerID).get(slotNum));
-            }
-        }
-    }
-
-    @EventHandler
-    public void onGuiClosing(InventoryCloseEvent event){
-        Player player = (Player) event.getPlayer();
-        if (activeGui.contains(player.getName())) {
-            activeGui.remove(player.getName());
-        }
-    }
-
 
     @Override
     public Inventory getInventory() {

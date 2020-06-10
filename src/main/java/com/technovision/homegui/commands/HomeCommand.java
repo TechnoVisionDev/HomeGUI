@@ -22,7 +22,7 @@ public class HomeCommand implements CommandExecutor {
             if (cmd.getName().equalsIgnoreCase(HOME)) {
                 if (args.length == 0) {
                     HomeGUI gui = new HomeGUI(player.getUniqueId());
-                    gui.openInventory(player);
+                    player.openInventory(gui.getInventory());
                 } else if (args.length == 1) {
                     player.performCommand("essentials:home " + args[0]);
                 }

@@ -24,7 +24,6 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
     private Inventory inv;
 
     public ChangeIconGUI() {
-        Bukkit.getServer().getPluginManager().registerEvents(this, Homegui.PLUGIN);
         String title = Homegui.PLUGIN.getConfig().getString("gui-icon-header").replace('&', '§');
         title = title.replace("§8", "");
         inv = Bukkit.createInventory(this, 54, title);
@@ -44,38 +43,6 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
         player.openInventory(inv);
         activeGui.add(player.getName());
         homes.put(player.getUniqueId().toString(), home);
-    }
-
-    @EventHandler
-    public void onGuiActivation(InventoryClickEvent event){
-        if (event.getClickedInventory() == null) { return; }
-        Player player = (Player) event.getWhoClicked();
-        if (activeGui.contains(player.getName()) && event.getCurrentItem() != null) {
-            event.setCancelled(true);
-            if (event.getClickedInventory().getType() == InventoryType.PLAYER) { return; }
-            if (event.isLeftClick()) {
-                String itemName = event.getCurrentItem().getItemMeta().getDisplayName();
-                String playerID = event.getWhoClicked().getUniqueId().toString();
-                Material icon = event.getCurrentItem().getType();
-
-                String homeName = homes.get(playerID).getName();
-                Homegui.dataReader.write(playerID, homeName, icon);
-
-                String msg = Homegui.PLUGIN.getConfig().getString("icon-select-message").replace("&", "§");
-                msg = msg.replace("{home}", homeName);
-                msg = msg.replace("{icon}", itemName);
-                player.sendMessage(msg);
-                player.closeInventory();
-            }
-        }
-    }
-
-    @EventHandler
-    public void onGuiClosing(InventoryCloseEvent event){
-        Player player = (Player) event.getPlayer();
-        if (activeGui.contains(player.getName())) {
-            activeGui.remove(player.getName());
-        }
     }
 
     private void initItems() {
