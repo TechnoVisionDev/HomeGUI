@@ -50,7 +50,7 @@ public class HomeGUI implements InventoryHolder {
             String nameColor = Homegui.PLUGIN.getConfig().getString("home-color").replace("&", "§");
             name = nameColor + name;
             List<String> lore = Homegui.PLUGIN.getConfig().getStringList("home-lore");
-            String location = home.getX() + "x§7,§f " + home.getY() + "y§7,§f " + home.getZ() + "z";
+            String location = "§f " + home.getX() + "x§7,§f " + home.getY() + "y§7,§f " + home.getZ() + "z";
             for (int i = 0; i < lore.size(); i++) {
                 String newLine = lore.get(i).replace("{location}", location);
                 newLine = newLine.replace("{world}", home.getWorld());

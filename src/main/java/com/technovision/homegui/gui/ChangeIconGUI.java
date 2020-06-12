@@ -34,7 +34,7 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
         final ItemStack item = new ItemStack(material, 1);
         final ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§f" + name);
-        meta.setLore(Arrays.asList("§7Click to select material."));
+        meta.setLore(Arrays.asList(Homegui.PLUGIN.getConfig().getString("icon-select-lore-message").replace('&', '§')));
         item.setItemMeta(meta);
         return item;
     }
