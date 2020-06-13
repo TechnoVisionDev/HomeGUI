@@ -29,7 +29,7 @@ public class HomeEvents implements Listener {
                     player.performCommand("essentials:home " + name);
                     player.closeInventory();
                     //Middle Click
-                } else if (event.getClick().equals(ClickType.MIDDLE)) {
+                } else if (event.getClick() == ClickType.MIDDLE) {
                     player.performCommand("essentials:delhome " + name);
                     Homegui.dataReader.removeIcon(playerID, name);
                     player.closeInventory();
