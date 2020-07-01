@@ -55,7 +55,15 @@ public class PlayerDataReader {
             YamlConfiguration dataFileConfig = YamlConfiguration.loadConfiguration(dataFile);
             if (dataFileConfig.contains(homeName)) {
                 String name = dataFileConfig.get(homeName).toString();
-                XMaterial item = XMaterial.matchXMaterial(Material.getMaterial(name));
+                XMaterial item;
+                String materialName = Material.getMaterial(name).toString();
+                if (materialName.equalsIgnoreCase("PISTON_MOVING_PIECE")) {
+                    item = XMaterial.PISTON;
+                } else if (materialName.equalsIgnoreCase("BED")) {
+                    item = XMaterial.RED_BED;
+                } else {
+                    item = XMaterial.matchXMaterial(Material.getMaterial(name));
+                }
                 return item.parseItem();
             }
         }
