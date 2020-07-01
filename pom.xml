@@ -80,10 +80,5 @@
             <artifactId>XSeries</artifactId>
             <version>6.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.WesJD.AnvilGUI</groupId>
-            <artifactId>anvilgui</artifactId>
-            <version>bbfabb85b4</version>
-        </dependency>
     </dependencies>
 </project>

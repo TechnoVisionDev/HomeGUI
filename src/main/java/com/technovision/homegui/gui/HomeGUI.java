@@ -1,11 +1,9 @@
 package com.technovision.homegui.gui;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.technovision.homegui.Homegui;
 import com.technovision.homegui.playerdata.EssentialsReader;
 import com.technovision.homegui.playerdata.Home;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;

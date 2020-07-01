@@ -7,7 +7,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
-import javax.management.MXBean;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;

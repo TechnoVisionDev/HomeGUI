@@ -12,6 +12,3 @@ commands:
   h:
     description: Reloads the HomeGUI config.
     usage: /<command>
-  sethome:
-    description: Opens the SetHomeGUI screen.
-    usage: /<command>
