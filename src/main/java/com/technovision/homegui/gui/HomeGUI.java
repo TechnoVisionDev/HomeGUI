@@ -1,5 +1,6 @@
 package com.technovision.homegui.gui;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.technovision.homegui.Homegui;
 import com.technovision.homegui.playerdata.EssentialsReader;
 import com.technovision.homegui.playerdata.Home;
@@ -46,7 +47,7 @@ public class HomeGUI implements InventoryHolder {
         String name;
         for (Home home : homes) {
             name = home.getName().substring(0, 1).toUpperCase() + home.getName().substring(1);
-            Material icon = Homegui.dataReader.getIcon(playerID, home.getName());
+            ItemStack item = Homegui.dataReader.getItem(playerID, home.getName());
             String nameColor = Homegui.PLUGIN.getConfig().getString("home-color").replace("&", "§");
             name = nameColor + name;
             List<String> lore = Homegui.PLUGIN.getConfig().getStringList("home-lore");
@@ -61,12 +62,11 @@ public class HomeGUI implements InventoryHolder {
                 }
                 lore.set(i, newLine);
             }
-            inv.addItem(createGuiItem(icon, name, lore));
+            inv.addItem(createGuiItem(item, name, lore));
         }
     }
 
-    private ItemStack createGuiItem(final Material material, final String name, final List<String> lore) {
-        final ItemStack item = new ItemStack(material, 1);
+    private ItemStack createGuiItem(final ItemStack item, final String name, final List<String> lore) {
         final ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
         meta.setLore(lore);

@@ -1,5 +1,6 @@
 package com.technovision.homegui.events;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.technovision.homegui.Homegui;
 import com.technovision.homegui.gui.ChangeIconGUI;
 import com.technovision.homegui.gui.HomeGUI;
@@ -19,6 +20,7 @@ public class HomeEvents implements Listener {
             if (event.getClickedInventory() == null) { return; }
             Player player = (Player) event.getWhoClicked();
             if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getType() == Material.AIR) { return; }
                 event.setCancelled(true);
                 if (event.getClickedInventory().getType() == InventoryType.PLAYER) { return; }
                 String playerID = player.getUniqueId().toString();
@@ -44,15 +46,16 @@ public class HomeEvents implements Listener {
             if (event.getClickedInventory() == null) { return; }
             Player player = (Player) event.getWhoClicked();
             if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getType() == Material.AIR) { return; }
                 event.setCancelled(true);
                 if (event.getClickedInventory().getType() == InventoryType.PLAYER) { return; }
                 if (event.isLeftClick()) {
-                    String itemName = event.getCurrentItem().getItemMeta().getDisplayName();
+                    String itemName = getFriendlyName(event.getCurrentItem().getType());
                     String playerID = event.getWhoClicked().getUniqueId().toString();
-                    Material icon = event.getCurrentItem().getType();
+                    XMaterial icon = XMaterial.matchXMaterial(event.getCurrentItem().getType());
 
                     String homeName = ChangeIconGUI.homes.get(playerID).getName();
-                    Homegui.dataReader.write(playerID, homeName, icon);
+                    Homegui.dataReader.write(playerID, homeName, icon.parseMaterial());
 
                     String msg = Homegui.PLUGIN.getConfig().getString("icon-select-message").replace("&", "§");
                     msg = msg.replace("{home}", homeName);
@@ -62,5 +65,30 @@ public class HomeEvents implements Listener {
                 }
             }
         }
+    }
+
+    private String format(String s) {
+        if (!s.contains("_")) {
+            return capitalize(s);
+        }
+        String[] j = s.split("_");
+        String c = "";
+        for (String f : j) {
+            f = capitalize(f);
+            c += c.equalsIgnoreCase("") ? f : " " + f;
+        }
+        return c;
+    }
+
+    private String capitalize(String text) {
+        String firstLetter = text.substring(0, 1).toUpperCase();
+        String next = text.substring(1).toLowerCase();
+        String capitalized = firstLetter + next;
+        return capitalized;
+    }
+
+    public String getFriendlyName(Material m) {
+        String name = format(m.name());
+        return name;
     }
 }

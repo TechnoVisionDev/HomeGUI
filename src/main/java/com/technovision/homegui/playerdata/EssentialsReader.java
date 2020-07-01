@@ -1,5 +1,6 @@
 package com.technovision.homegui.playerdata;
 
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -38,7 +39,7 @@ public class EssentialsReader {
     }
 
     private void initHomes() {
-        homes = new ArrayList<Home>();
+        homes = new ArrayList<>();
         try {
             Set<String> names = fileReader.getConfigurationSection("homes").getKeys(false);
             for (String name : names) {
@@ -54,7 +55,7 @@ public class EssentialsReader {
                         z = Double.parseDouble(fileReader.get("homes." + name + "." + info).toString());
                     }
                 }
-                homes.add(new Home(name, world, (int) x, (int) y, (int) z, Material.GRASS_BLOCK));
+                homes.add(new Home(name, world, (int) x, (int) y, (int) z, XMaterial.GRASS_BLOCK.parseMaterial()));
             }
         } catch (NullPointerException ignored) { }
     }

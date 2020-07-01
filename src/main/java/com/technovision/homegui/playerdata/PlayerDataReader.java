@@ -1,10 +1,13 @@
 package com.technovision.homegui.playerdata;
 
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
+import javax.management.MXBean;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,16 +50,17 @@ public class PlayerDataReader {
         }
     }
 
-    public Material getIcon(String playerUUID, String homeName) {
+    public ItemStack getItem(String playerUUID, String homeName) {
         File dataFile = getFile(playerUUID);
         if (dataFile.exists()) {
             YamlConfiguration dataFileConfig = YamlConfiguration.loadConfiguration(dataFile);
             if (dataFileConfig.contains(homeName)) {
                 String name = dataFileConfig.get(homeName).toString();
-                return Material.valueOf(name);
+                XMaterial item = XMaterial.matchXMaterial(Material.getMaterial(name));
+                return item.parseItem();
             }
         }
-        return Material.GRASS_BLOCK;
+        return XMaterial.GRASS_BLOCK.parseItem();
     }
 
     public void removeIcon(String playerUUID, String homeName) {
@@ -64,7 +68,6 @@ public class PlayerDataReader {
             File dataFile = getFile(playerUUID);
             if (dataFile.exists()) {
                 YamlConfiguration dataFileConfig = YamlConfiguration.loadConfiguration(dataFile);
-                System.out.println("HEYYYYYY " + homeName);
                 dataFileConfig.set(homeName, null);
                 dataFileConfig.save(dataFile);
             }

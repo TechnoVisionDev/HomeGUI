@@ -1,15 +1,12 @@
 package com.technovision.homegui.gui;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.technovision.homegui.Homegui;
 import com.technovision.homegui.playerdata.Home;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -30,10 +27,8 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
         initItems();
     }
 
-    private ItemStack createGuiItem(final Material material, String name) {
-        final ItemStack item = new ItemStack(material, 1);
+    private ItemStack addItemLore(ItemStack item) {
         final ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§f" + name);
         meta.setLore(Arrays.asList(Homegui.PLUGIN.getConfig().getString("icon-select-lore-message").replace('&', '§')));
         item.setItemMeta(meta);
         return item;
@@ -48,36 +43,15 @@ public class ChangeIconGUI implements InventoryHolder, Listener {
     private void initItems() {
         List<String> icons = Homegui.PLUGIN.getConfig().getStringList("icons");
         for (String icon : icons) {
-            Material item = Material.getMaterial(icon);
-            if (item != null) {
-                inv.addItem(createGuiItem(item, getFriendlyName(item)));
+            try {
+                ItemStack item = XMaterial.valueOf(icon).parseItem();
+                if (item != null) {
+                    inv.addItem(addItemLore(item));
+                }
+            } catch (IllegalArgumentException e) {
+                Homegui.PLUGIN.getLogger().config("ERROR: Incorrect or Missing Material Type in Config.yml!");
             }
         }
-    }
-
-    private String format(String s) {
-        if (!s.contains("_")) {
-            return capitalize(s);
-        }
-        String[] j = s.split("_");
-        String c = "";
-        for (String f : j) {
-            f = capitalize(f);
-            c += c.equalsIgnoreCase("") ? f : " " + f;
-        }
-        return c;
-    }
-
-    private String capitalize(String text) {
-        String firstLetter = text.substring(0, 1).toUpperCase();
-        String next = text.substring(1).toLowerCase();
-        String capitalized = firstLetter + next;
-        return capitalized;
-    }
-
-    public String getFriendlyName(Material m) {
-        String name = format(m.name());
-        return name;
     }
 
     @Override

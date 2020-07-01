@@ -1,5 +1,6 @@
 package com.technovision.homegui.commands;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.technovision.homegui.Homegui;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
@@ -32,7 +33,7 @@ public class SetHomeCommand implements CommandExecutor {
                     new AnvilGUI.Builder().onComplete((player1, text) -> {
                         player1.performCommand("essentials:sethome "+ text);
                         return AnvilGUI.Response.close();
-                    }).preventClose().text("Change Me").item(new ItemStack(Material.GRASS_BLOCK)).title(title).plugin(Homegui.PLUGIN).open(player);
+                    }).preventClose().text("Change Me").item(XMaterial.GRASS_BLOCK.parseItem()).title(title).plugin(Homegui.PLUGIN).open(player);
                 } else if (args.length == 1) {
                     player.performCommand("essentials:sethome " + args[0]);
                 }
