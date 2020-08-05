@@ -1,5 +1,5 @@
 ## HomeGUI - Spigot Plugin
-An interactive GUI that hooks into EssentialsX homes.
+HomeGUI is an interactive and highly customizable GUI that allows players to easily access their EssentialsX homes. The GUI is dynamic, supporting up to 54 homes with unique icons and names. Players can set, use, delete, and modify their homes right from the GUI, so there are almost no commands necessary! Check out the plugin [here](https://www.spigotmc.org/resources/homegui-1-8-1-16.77852/)!
 
 ### Connect With Me:
 
