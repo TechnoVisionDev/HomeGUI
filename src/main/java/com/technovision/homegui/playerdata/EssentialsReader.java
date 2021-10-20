@@ -44,7 +44,9 @@ public class EssentialsReader {
             for (String name : names) {
                 Set<String> data = fileReader.getConfigurationSection("homes." + name).getKeys(false);
                 for (String info : data) {
-                    if (info.matches("world")) {
+                    if (info.matches("world-name")) {
+                        world = fileReader.get("homes." + name + "." + info).toString();
+                    } else if (info.matches("world") && world == null) {
                         world = fileReader.get("homes." + name + "." + info).toString();
                     } else if (info.matches("x")) {
                         x = Double.parseDouble(fileReader.get("homes." + name + "." + info).toString());
