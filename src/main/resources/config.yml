@@ -27,7 +27,7 @@ home-lore:
   - '&7World: &f{world}'
   - ' '
   - '&7Left-Click to Teleport'
-  - '&7Middle-Click to Delete Home'
+  - '&7Shift-Right-Click to Delete Home'
   - '&7Right-Click to Edit Icon'
 icons:
   - DIRT
